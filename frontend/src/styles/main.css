@@ -379,6 +379,82 @@ th {
   top: 24px;
 }
 
+.detail-list {
+  display: grid;
+  gap: 0;
+  margin-top: 16px;
+  border: 1px solid #dce3e8;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.detail-item:not(:last-child) {
+  border-bottom: 1px solid #e5ebef;
+}
+
+.detail-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.detail-toggle:hover {
+  background: #f4f6f8;
+}
+
+.detail-toggle span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-status {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.detail-status.correct {
+  background: #e4f6ec;
+  color: #1e6b3f;
+}
+
+.detail-status.wrong {
+  background: #fde8e8;
+  color: #a32929;
+}
+
+.detail-body {
+  padding: 8px 12px 12px 34px;
+  background: #f9fafb;
+  font-size: 13px;
+}
+
+.detail-body p {
+  margin: 4px 0;
+}
+
+.text-correct {
+  color: #1e6b3f;
+}
+
+.text-wrong {
+  color: #a32929;
+}
+
 .score-result {
   display: grid;
   gap: 8px;

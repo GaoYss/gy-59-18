@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
-import { ClipboardCheck, Send } from 'lucide-vue-next'
+import { ChevronDown, ChevronRight, ClipboardCheck, Send } from 'lucide-vue-next'
 
 import { examApi } from '../api/modules'
 import EmptyState from '../components/EmptyState.vue'
@@ -15,6 +15,7 @@ const result = ref(null)
 const loading = ref(false)
 const submitting = ref(false)
 const message = reactive({ text: '', type: 'info' })
+const expandedDetail = ref(null)
 
 const canSubmit = computed(() => {
   return studentName.value.trim() && questions.value.length && questions.value.every((q) => answers[q.id])
@@ -24,9 +25,14 @@ function optionLabel(index) {
   return ['A', 'B', 'C', 'D'][index]
 }
 
+function toggleDetail(index) {
+  expandedDetail.value = expandedDetail.value === index ? null : index
+}
+
 function resetAnswers() {
   Object.keys(answers).forEach((key) => delete answers[key])
   result.value = null
+  expandedDetail.value = null
 }
 
 async function loadQuestions() {
@@ -117,6 +123,26 @@ onMounted(loadQuestions)
         <strong>{{ result.record.passed ? '合格' : '不合格' }}</strong>
         <p>答对 {{ result.record.correctCount }} / {{ result.record.totalQuestions }} 题</p>
         <p v-if="result.makeup">补考状态：{{ result.makeup.status }}</p>
+
+        <div class="detail-list">
+          <div
+            v-for="(item, index) in result.record.details"
+            :key="item.questionId"
+            class="detail-item"
+          >
+            <button class="detail-toggle" @click="toggleDetail(index)">
+              <component :is="expandedDetail === index ? ChevronDown : ChevronRight" :size="16" />
+              <span>{{ index + 1 }}. {{ item.question }}</span>
+              <span :class="['detail-status', item.correct ? 'correct' : 'wrong']">
+                {{ item.correct ? '正确' : '错误' }}
+              </span>
+            </button>
+            <div v-if="expandedDetail === index" class="detail-body">
+              <p>你的选择：<strong :class="item.correct ? 'text-correct' : 'text-wrong'">{{ item.chosen || '未作答' }}</strong></p>
+              <p>正确答案：<strong class="text-correct">{{ item.answer }}</strong></p>
+            </div>
+          </div>
+        </div>
       </div>
     </aside>
   </section>
