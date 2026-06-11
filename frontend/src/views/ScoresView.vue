@@ -110,7 +110,6 @@ onMounted(loadScores)
                     :key="item.questionId"
                     :item="item"
                     :index="index"
-                    :collapsible="false"
                   />
                 </div>
               </td>

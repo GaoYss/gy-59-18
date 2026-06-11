@@ -589,25 +589,14 @@ th {
   margin-bottom: 0;
 }
 
-.scores-table .detail-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 14px;
+.scores-table .detail-item .detail-toggle {
   background: #f9fafb;
   border-bottom: 1px solid #e5ebef;
 }
 
-.scores-table .detail-title {
-  font-weight: 600;
-  color: #1f2937;
-  font-size: 13px;
-}
-
-.scores-table .detail-body {
-  padding: 12px 14px;
+.scores-table .detail-item .detail-body {
   background: #fff;
+  padding: 12px 14px 12px 34px;
 }
 
 .score-result {
