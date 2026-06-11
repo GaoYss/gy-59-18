@@ -1,10 +1,11 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
-import { ChevronDown, ChevronRight, ClipboardCheck, Send } from 'lucide-vue-next'
+import { ClipboardCheck, Send } from 'lucide-vue-next'
 
 import { examApi } from '../api/modules'
 import EmptyState from '../components/EmptyState.vue'
 import MessageBar from '../components/MessageBar.vue'
+import QuestionDetail from '../components/QuestionDetail.vue'
 import { subjects } from '../constants/options'
 
 const studentName = ref('')
@@ -15,7 +16,6 @@ const result = ref(null)
 const loading = ref(false)
 const submitting = ref(false)
 const message = reactive({ text: '', type: 'info' })
-const expandedDetail = ref(null)
 
 const canSubmit = computed(() => {
   return studentName.value.trim() && questions.value.length && questions.value.every((q) => answers[q.id])
@@ -25,14 +25,9 @@ function optionLabel(index) {
   return ['A', 'B', 'C', 'D'][index]
 }
 
-function toggleDetail(index) {
-  expandedDetail.value = expandedDetail.value === index ? null : index
-}
-
 function resetAnswers() {
   Object.keys(answers).forEach((key) => delete answers[key])
   result.value = null
-  expandedDetail.value = null
 }
 
 async function loadQuestions() {
@@ -125,36 +120,12 @@ onMounted(loadQuestions)
         <p v-if="result.makeup">补考状态：{{ result.makeup.status }}</p>
 
         <div class="detail-list">
-          <div
+          <QuestionDetail
             v-for="(item, index) in result.record.details"
             :key="item.questionId"
-            class="detail-item"
-          >
-            <button class="detail-toggle" @click="toggleDetail(index)">
-              <component :is="expandedDetail === index ? ChevronDown : ChevronRight" :size="16" />
-              <span>{{ index + 1 }}. {{ item.question }}</span>
-              <span :class="['detail-status', item.correct ? 'correct' : 'wrong']">
-                {{ item.correct ? '正确' : '错误' }}
-              </span>
-            </button>
-            <div v-if="expandedDetail === index" class="detail-body">
-              <div
-                v-for="(opt, optIdx) in item.options"
-                :key="opt"
-                :class="[
-                  'option-row',
-                  optionLabel(optIdx) === item.answer && 'option-correct',
-                  optionLabel(optIdx) === item.chosen && !item.correct && 'option-wrong'
-                ]"
-              >
-                <span class="option-mark">{{ optionLabel(optIdx) }}.</span>
-                <span class="option-text">{{ opt }}</span>
-                <span v-if="optionLabel(optIdx) === item.chosen" :class="['option-tag', item.correct ? 'tag-correct' : 'tag-wrong']">你的选择</span>
-                <span v-if="optionLabel(optIdx) === item.answer && optionLabel(optIdx) !== item.chosen" class="option-tag tag-correct">正确答案</span>
-              </div>
-              <p v-if="!item.chosen" class="detail-note">未作答</p>
-            </div>
-          </div>
+            :item="item"
+            :index="index"
+          />
         </div>
       </div>
     </aside>

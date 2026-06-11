@@ -5,6 +5,7 @@ import { ChevronDown, ChevronRight, Search } from 'lucide-vue-next'
 import { scoreApi } from '../api/modules'
 import EmptyState from '../components/EmptyState.vue'
 import MessageBar from '../components/MessageBar.vue'
+import QuestionDetail from '../components/QuestionDetail.vue'
 import StatusBadge from '../components/StatusBadge.vue'
 import { subjects } from '../constants/options'
 
@@ -13,10 +14,6 @@ const loading = ref(false)
 const message = reactive({ text: '', type: 'info' })
 const filters = reactive({ studentName: '', subject: '' })
 const expandedRow = ref(null)
-
-function optionLabel(index) {
-  return ['A', 'B', 'C', 'D'][index]
-}
 
 function toggleRow(id) {
   expandedRow.value = expandedRow.value === id ? null : id
@@ -108,35 +105,13 @@ onMounted(loadScores)
             <tr v-if="expandedRow === row.id && row.details && row.details.length" class="detail-row">
               <td colspan="7">
                 <div class="detail-list">
-                  <div
+                  <QuestionDetail
                     v-for="(item, index) in row.details"
                     :key="item.questionId"
-                    class="detail-item"
-                  >
-                    <div class="detail-header">
-                      <span class="detail-title">{{ index + 1 }}. {{ item.question }}</span>
-                      <span :class="['detail-status', item.correct ? 'correct' : 'wrong']">
-                        {{ item.correct ? '正确' : '错误' }}
-                      </span>
-                    </div>
-                    <div class="detail-body">
-                      <div
-                        v-for="(opt, optIdx) in item.options"
-                        :key="opt"
-                        :class="[
-                          'option-row',
-                          optionLabel(optIdx) === item.answer && 'option-correct',
-                          optionLabel(optIdx) === item.chosen && !item.correct && 'option-wrong'
-                        ]"
-                      >
-                        <span class="option-mark">{{ optionLabel(optIdx) }}.</span>
-                        <span class="option-text">{{ opt }}</span>
-                        <span v-if="optionLabel(optIdx) === item.chosen" :class="['option-tag', item.correct ? 'tag-correct' : 'tag-wrong']">你的选择</span>
-                        <span v-if="optionLabel(optIdx) === item.answer && optionLabel(optIdx) !== item.chosen" class="option-tag tag-correct">正确答案</span>
-                      </div>
-                      <p v-if="!item.chosen" class="detail-note">未作答</p>
-                    </div>
-                  </div>
+                    :item="item"
+                    :index="index"
+                    :collapsible="false"
+                  />
                 </div>
               </td>
             </tr>
