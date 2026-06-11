@@ -131,8 +131,8 @@ onMounted(loadScores)
                       >
                         <span class="option-mark">{{ optionLabel(optIdx) }}.</span>
                         <span class="option-text">{{ opt }}</span>
-                        <span v-if="optionLabel(optIdx) === item.answer" class="option-tag tag-correct">正确答案</span>
-                        <span v-else-if="optionLabel(optIdx) === item.chosen" class="option-tag tag-wrong">你的选择</span>
+                        <span v-if="optionLabel(optIdx) === item.chosen" :class="['option-tag', item.correct ? 'tag-correct' : 'tag-wrong']">你的选择</span>
+                        <span v-if="optionLabel(optIdx) === item.answer && optionLabel(optIdx) !== item.chosen" class="option-tag tag-correct">正确答案</span>
                       </div>
                       <p v-if="!item.chosen" class="detail-note">未作答</p>
                     </div>
