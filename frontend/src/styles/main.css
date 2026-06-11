@@ -455,6 +455,161 @@ th {
   color: #a32929;
 }
 
+.detail-note {
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border: 1px solid #dce3e8;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.option-row.option-correct {
+  background: #e4f6ec;
+  border-color: #1e6b3f;
+}
+
+.option-row.option-wrong {
+  background: #fde8e8;
+  border-color: #a32929;
+}
+
+.option-mark {
+  font-weight: 700;
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.option-text {
+  flex: 1;
+  min-width: 0;
+  color: #1f2937;
+}
+
+.option-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.tag-correct {
+  background: #1e6b3f;
+  color: #fff;
+}
+
+.tag-wrong {
+  background: #a32929;
+  color: #fff;
+}
+
+.scores-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.scores-table th,
+.scores-table td {
+  border-bottom: 1px solid #e5ebef;
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.scores-table th {
+  color: #5b6672;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.scores-table th:first-child {
+  width: 36px;
+}
+
+.scores-table tbody tr:hover:not(.detail-row) {
+  background: #f9fafb;
+}
+
+.scores-table tr.row-expanded {
+  background: #f4f6f8;
+}
+
+.scores-table tr.detail-row {
+  background: #f4f6f8;
+}
+
+.scores-table tr.detail-row td {
+  padding: 16px 24px 20px 60px;
+  border-bottom: 2px solid #dce3e8;
+}
+
+.expand-btn {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  background: #edf3f5;
+  color: #1f5664;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.expand-btn:hover {
+  background: #d9e7eb;
+}
+
+.scores-table .detail-list {
+  margin-top: 0;
+}
+
+.scores-table .detail-item {
+  background: #fff;
+  border: 1px solid #dce3e8;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.scores-table .detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.scores-table .detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5ebef;
+}
+
+.scores-table .detail-title {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 13px;
+}
+
+.scores-table .detail-body {
+  padding: 12px 14px;
+  background: #fff;
+}
+
 .score-result {
   display: grid;
   gap: 8px;

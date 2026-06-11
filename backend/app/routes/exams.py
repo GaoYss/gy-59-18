@@ -44,6 +44,7 @@ def submit_exam():
             {
                 "questionId": question.id,
                 "question": question.question,
+                "options": question.options,
                 "chosen": chosen,
                 "answer": question.answer,
                 "correct": correct,

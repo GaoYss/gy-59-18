@@ -138,8 +138,21 @@ onMounted(loadQuestions)
               </span>
             </button>
             <div v-if="expandedDetail === index" class="detail-body">
-              <p>你的选择：<strong :class="item.correct ? 'text-correct' : 'text-wrong'">{{ item.chosen || '未作答' }}</strong></p>
-              <p>正确答案：<strong class="text-correct">{{ item.answer }}</strong></p>
+              <div
+                v-for="(opt, optIdx) in item.options"
+                :key="opt"
+                :class="[
+                  'option-row',
+                  optionLabel(optIdx) === item.answer && 'option-correct',
+                  optionLabel(optIdx) === item.chosen && !item.correct && 'option-wrong'
+                ]"
+              >
+                <span class="option-mark">{{ optionLabel(optIdx) }}.</span>
+                <span class="option-text">{{ opt }}</span>
+                <span v-if="optionLabel(optIdx) === item.answer" class="option-tag tag-correct">正确答案</span>
+                <span v-else-if="optionLabel(optIdx) === item.chosen" class="option-tag tag-wrong">你的选择</span>
+              </div>
+              <p v-if="!item.chosen" class="detail-note">未作答</p>
             </div>
           </div>
         </div>
